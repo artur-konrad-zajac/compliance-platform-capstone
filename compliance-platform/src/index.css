@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#E5E7EB] text-[#111827] font-sans antialiased;
+  }
+  
+  .dark body {
+    @apply bg-[#0A0A0B] text-[#F9FAFB];
+  }
+
+  /* Modern global scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.4);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 163, 175, 0.6);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: rgba(75, 85, 99, 0.4);
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: rgba(75, 85, 99, 0.6);
+  }
+}
+
+@layer utilities {
+  .saas-card {
+    @apply bg-white border border-gray-200 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05),0_1px_2px_-1px_rgba(0,0,0,0.05)] rounded-2xl dark:bg-[#1C1C1E] dark:border-[#27272A];
+  }
+  
+  .saas-input {
+    @apply w-full px-4 py-3 bg-white dark:bg-[#0A0A0B] border border-gray-200 dark:border-[#27272A] rounded-xl focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all text-slate-900 dark:text-slate-100;
+  }
+  
+  .saas-button {
+    @apply flex items-center justify-center font-medium rounded-xl transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-offset-[#0A0A0B];
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+

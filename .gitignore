@@ -1,0 +1,27 @@
+# Node
+node_modules/
+**/node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Environment
+.env
+.env.*
+*.local
+!.env.example
+
+# Logs and Data
+logs/
+*.log
+sessions/
+data_dumps/
+compliance-platform/videos/
+
+# OS
+.DS_Store
+Thumbs.db

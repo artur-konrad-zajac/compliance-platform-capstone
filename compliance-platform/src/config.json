@@ -1,0 +1,2548 @@
+{
+  "version": 1,
+  "tabs_layout": [
+    "tab_general_info",
+    "tab_hr_general",
+    "tab_hr_risk_data",
+    "tab_hr_tech_docs_logs",
+    "tab_hr_transparency_oversight",
+    "tab_hr_arc",
+    "tab_hr_qms_conformity",
+    "tab_hr_post_market",
+    "tab_hr_value_deployer",
+    "tab_biometric_id_realtime_le",
+    "tab_biometric_id_post_le",
+    "tab_transparency_obligations",
+    "tab_gpai_models",
+    "tab_innovation_testing",
+    "tab_registration"
+  ],
+  "tabs": [
+    {
+      "id": "tab_general_info",
+      "title": "General AI System Information",
+      "layout": [
+        "q_party_role",
+        "q_provider_name",
+        "q_provider_address",
+        "q_provider_country_of_establishment",
+        "q_is_ai_system_high_risk",
+        "q_is_ai_system_annex_iii_listed",
+        "q_high_risk_classification_reasoning",
+        "q_annex_iii_high_risk_categories",
+        "q_not_high_risk_assessment_details",
+        "q_not_high_risk_assessment_document_upload",
+        "q_authorised_representative_name",
+        "q_authorised_representative_address",
+        "q_ai_system_trade_name",
+        "q_ai_system_intended_purpose",
+        "q_is_gpai_model",
+        "q_is_realtime_remote_biometric_id",
+        "q_is_post_remote_biometric_id",
+        "q_in_sandbox_or_real_world_testing"
+      ],
+      "questions": [
+        {
+          "id": "q_party_role",
+          "type": "checkbox",
+          "text": "Please indicate your role(s) concerning the AI system:",
+          "required": true,
+          "options": [
+            "Provider",
+            "Deployer",
+            "Authorized Representative",
+            "Importer",
+            "Distributor",
+            "Third-Party Supplier (of components/services to a high-risk AI system)"
+          ],
+          "tooltip": "Your role determines the specific obligations that apply to you under the AI Act. Select all that apply."
+        },
+        {
+          "id": "q_provider_name",
+          "type": "text",
+          "text": "Provider's Name (or registered trade name/trademark):",
+          "required": true,
+          "dependsOnExpression": "q_party_role.includes('Provider') || q_party_role.includes('Authorized Representative') || q_party_role.includes('Importer') || q_party_role.includes('Distributor')",
+          "placeholder": "Enter provider's legal name"
+        },
+        {
+          "id": "q_provider_address",
+          "type": "text",
+          "text": "Provider's Address:",
+          "required": true,
+          "dependsOnExpression": "q_party_role.includes('Provider') || q_party_role.includes('Authorized Representative') || q_party_role.includes('Importer') || q_party_role.includes('Distributor')",
+          "placeholder": "Enter provider's full address"
+        },
+        {
+          "id": "q_provider_country_of_establishment",
+          "type": "radio",
+          "text": "Is the provider established in an EU Member State or a third country?",
+          "required": true,
+          "options": [
+            "EU Member State",
+            "Third Country"
+          ],
+          "dependsOnExpression": "q_party_role.includes('Provider')",
+          "tooltip": "This information is essential for determining specific legal obligations under the AI Act, such as the requirement to appoint an Authorized Representative for providers established outside the EU who place high-risk AI systems on the Union market (Article 22(1))."
+        },
+        {
+          "id": "q_is_ai_system_high_risk",
+          "type": "radio",
+          "text": "Is this AI system classified as 'high-risk' according to Article 6 and Annex III of the AI Act?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "tooltip": "High-risk AI systems are those used in critical sectors or for specific purposes defined in Annex III, or those not explicitly excluded under Article 6(3)."
+        },
+        {
+          "id": "q_is_ai_system_annex_iii_listed",
+          "type": "radio",
+          "text": "Is your AI system listed in Annex III of the AI Act, despite your assessment that it is not high-risk (Article 6(3))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'No'",
+          "tooltip": "Article 6(4) requires documentation for AI systems referred to in Annex III but which you consider not high-risk based on the exceptions in Article 6(3)."
+        },
+        {
+          "id": "q_high_risk_classification_reasoning",
+          "type": "textarea",
+          "text": "Please provide your assessment and reasoning for classifying the AI system as 'high-risk', referencing relevant Annex III categories:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'",
+          "placeholder": "e.g., 'The system is high-risk under Annex III, point 1(a), as it is intended to be used as a safety component of products within the scope of EU product safety legislation.'"
+        },
+        {
+          "id": "q_annex_iii_high_risk_categories",
+          "type": "checkbox",
+          "text": "Which specific categories from Annex III apply to this high-risk AI system? (Select all that apply, as per Article 6(2))",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'",
+          "options": [
+            "Annex III, Point 1: Biometric identification and categorisation of natural persons (excluding those used for authentication purposes, and excluding those for determining access to a facility, time management or for monitoring health or well-being)",
+            "Annex III, Point 2: Critical infrastructure (AI systems intended to be used as safety components in the management and operation of critical infrastructure)",
+            "Annex III, Point 3: Education and vocational training (AI systems intended for determining access, assessing learning outcomes, or monitoring learning progress)",
+            "Annex III, Point 4: Employment, workers management and access to self-employment (AI systems for recruitment, evaluation, decision-making on promotion, or termination)",
+            "Annex III, Point 5: Access to and enjoyment of essential private services and public services and benefits (AI systems used to evaluate creditworthiness, dispatching emergency services, or in connection with the evaluation of eligibility for public assistance benefits and services)",
+            "Annex III, Point 6: Law enforcement (AI systems for individual risk assessments, polygraphs, detection of deepfakes, or assessment of reliability of evidence)",
+            "Annex III, Point 7: Migration, asylum and border control management (AI systems for examination of visa, asylum or border applications, detection of forged documents, or assisting authorities in border surveillance)",
+            "Annex III, Point 8: Administration of justice and democratic processes (AI systems intended to assist judicial authorities in researching and interpreting facts, applying the law, and in similar applications)"
+          ]
+        },
+        {
+          "id": "q_not_high_risk_assessment_details",
+          "type": "textarea",
+          "text": "Please summarize the grounds and conditions under Article 6(3) based on which the AI system is considered not high-risk, and upload the documentation if available:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'No' && q_is_ai_system_annex_iii_listed === 'Yes'",
+          "placeholder": "e.g., 'The AI system performs a narrow procedural task, improving the result of a prior human activity, and the output is subject to human review.'"
+        },
+        {
+          "id": "q_not_high_risk_assessment_document_upload",
+          "type": "file",
+          "text": "Upload the documented assessment for non-high-risk classification (Article 6(4)):",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'No' && q_is_ai_system_annex_iii_listed === 'Yes'",
+          "fileUploadConfig": {
+            "multiple": false
+          }
+        },
+        {
+          "id": "q_authorised_representative_name",
+          "type": "text",
+          "text": "Authorized Representative's Name (if applicable):",
+          "required": true,
+          "dependsOnExpression": "q_party_role.includes('Authorized Representative') || (q_party_role.includes('Provider') && q_provider_country_of_establishment === 'Third Country' && q_is_ai_system_high_risk === 'Yes')",
+          "placeholder": "Enter Authorized Representative's legal name"
+        },
+        {
+          "id": "q_authorised_representative_address",
+          "type": "text",
+          "text": "Authorized Representative's Address (if applicable):",
+          "required": true,
+          "dependsOnExpression": "q_party_role.includes('Authorized Representative') || (q_party_role.includes('Provider') && q_provider_country_of_establishment === 'Third Country' && q_is_ai_system_high_risk === 'Yes')",
+          "placeholder": "Enter Authorized Representative's full address"
+        },
+        {
+          "id": "q_ai_system_trade_name",
+          "type": "text",
+          "text": "AI System Trade Name and any additional unambiguous reference for identification and traceability:",
+          "required": true,
+          "dependsOnExpression": "q_party_role.includes('Provider') || q_party_role.includes('Deployer') || q_party_role.includes('Authorized Representative') || q_party_role.includes('Importer') || q_party_role.includes('Distributor')",
+          "placeholder": "e.g., 'Alpha AI Assistant v2.1', 'MedScan Pro-001'"
+        },
+        {
+          "id": "q_ai_system_intended_purpose",
+          "type": "textarea",
+          "text": "Describe the intended purpose of the AI system, including the specific context and conditions of use:",
+          "required": true,
+          "dependsOnExpression": "q_party_role.includes('Provider') || q_party_role.includes('Deployer')",
+          "placeholder": "e.g., 'To assist radiologists in detecting anomalies in X-ray images, for use in clinical settings within the EU, under human supervision.'"
+        },
+        {
+          "id": "q_is_gpai_model",
+          "type": "radio",
+          "text": "Is this an AI system that constitutes a 'general-purpose AI model' (GPAI model) as defined in the AI Act?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "tooltip": "A general-purpose AI model is an AI model that displays significant generality and is capable to competently perform a wide range of distinct tasks regardless of the way it is placed on the market."
+        },
+        {
+          "id": "q_is_realtime_remote_biometric_id",
+          "type": "radio",
+          "text": "Is this an AI system that constitutes a 'real-time' remote biometric identification system used in publicly accessible spaces for law enforcement purposes (Article 5)?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "tooltip": "This refers to systems processing biometric data in real-time to identify individuals in public spaces for law enforcement, subject to strict conditions."
+        },
+        {
+          "id": "q_is_post_remote_biometric_id",
+          "type": "radio",
+          "text": "Is this an AI system used for 'post-remote biometric identification' for law enforcement purposes (Article 26(10))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "tooltip": "This refers to biometric identification systems where the identification is not real-time, but still used for law enforcement purposes."
+        },
+        {
+          "id": "q_in_sandbox_or_real_world_testing",
+          "type": "radio",
+          "text": "Is this AI system currently undergoing testing in an AI regulatory sandbox or in real-world conditions outside a sandbox (Articles 57, 60)?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "tooltip": "This refers to controlled environments for innovation or testing in actual operational settings."
+        }
+      ]
+    },
+    {
+      "id": "tab_hr_general",
+      "title": "High-Risk AI - General",
+      "layout": [
+        "lbl_hr_general_intro",
+        "q_foreseeable_misuse_analyzed",
+        "q_intended_use_risks_analyzed",
+        "q_vulnerable_groups_considered",
+        "q_ai_literacy_measures",
+        "q_ai_literacy_measures_description",
+        "q_accessibility_requirements_compliance",
+        "q_accessibility_measures_description"
+      ],
+      "questions": [
+        {
+          "id": "lbl_hr_general_intro",
+          "type": "label",
+          "text": "This section covers general obligations for high-risk AI systems as per the AI Act.",
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_foreseeable_misuse_analyzed",
+          "type": "textarea",
+          "text": "Describe how the AI system's reasonably foreseeable misuse has been identified and analyzed during its design and development.",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'",
+          "placeholder": "Detail the methods used for identifying and analyzing foreseeable misuse, including documentation, risk assessments, and mitigation strategies."
+        },
+        {
+          "id": "q_intended_use_risks_analyzed",
+          "type": "textarea",
+          "text": "Describe how known and reasonably foreseeable risks to health, safety, or fundamental rights when the high-risk AI system is used in accordance with its intended purpose have been identified and analyzed.",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'",
+          "placeholder": "Detail the methods used for identifying and analyzing risks associated with the intended use, including documentation, risk assessments, and mitigation strategies. This covers risks to health, safety, or fundamental rights."
+        },
+        {
+          "id": "q_vulnerable_groups_considered",
+          "type": "textarea",
+          "text": "Describe how consideration has been given to whether the high-risk AI system is likely to have an adverse impact on persons under the age of 18 and other vulnerable groups, in view of its intended purpose.",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'",
+          "placeholder": "Detail the analysis performed, the vulnerable groups identified, potential adverse impacts, and any mitigation strategies implemented as part of the risk management system."
+        },
+        {
+          "id": "q_ai_literacy_measures",
+          "type": "label",
+          "text": "It is required to ensure a sufficient level of AI literacy for staff and other persons dealing with the operation and use of this AI system, commensurate with technical knowledge, experience, education, training, and context of use, considering persons/groups on whom the AI systems are used.",
+          "dependsOnExpression": "q_party_role.includes('Provider') || q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_ai_literacy_measures_description",
+          "type": "textarea",
+          "text": "Describe the measures taken to ensure AI literacy:",
+          "required": true,
+          "dependsOnExpression": "q_party_role.includes('Provider') || q_party_role.includes('Deployer')",
+          "placeholder": "e.g., 'Mandatory internal training modules covering AI system capabilities, limitations, and ethical considerations, tailored to different staff roles.'"
+        },
+        {
+          "id": "q_accessibility_requirements_compliance",
+          "type": "radio",
+          "text": "Does the high-risk AI system comply with accessibility requirements in accordance with Directives (EU) 2016/2102 and (EU) 2019/882 (Article 16(l))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_accessibility_measures_description",
+          "type": "textarea",
+          "text": "Describe the measures implemented to ensure accessibility:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_accessibility_requirements_compliance === 'Yes'",
+          "placeholder": "e.g., 'User interfaces developed following WCAG 2.1 AA guidelines, providing screen reader compatibility and keyboard navigation.'"
+        }
+      ]
+    },
+    {
+      "id": "tab_hr_risk_data",
+      "title": "High-Risk AI - Risk Management & Data Governance",
+      "layout": [
+        "lbl_hr_risk_data_intro",
+        "q_risk_management_system_established",
+        "q_risk_management_continuous_process",
+        "q_risk_management_steps_covered",
+        "q_risk_management_measures_ensured",
+        "q_high_risk_system_tested",
+        "q_high_risk_testing_details",
+        "q_data_governance_established",
+        "q_data_governance_practices_covered",
+        "q_special_categories_data_processed_bias",
+        "q_special_categories_data_safeguards"
+      ],
+      "questions": [
+        {
+          "id": "lbl_hr_risk_data_intro",
+          "type": "label",
+          "text": "This section covers risk management and data governance obligations for high-risk AI systems (Articles 9 & 10).",
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_risk_management_system_established",
+          "type": "radio",
+          "text": "Has a risk management system been established, implemented, documented, and maintained for this high-risk AI system (Article 9(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_risk_management_continuous_process",
+          "type": "radio",
+          "text": "Is the risk management system understood as a continuous iterative process planned and run throughout the entire lifecycle of the system, including regular systematic review and updating (Article 9(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_risk_management_system_established === 'Yes'"
+        },
+        {
+          "id": "q_risk_management_steps_covered",
+          "type": "checkbox",
+          "text": "Which of the following steps are covered by your risk management system (Article 9(2))? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_risk_management_system_established === 'Yes'",
+          "options": [
+            "Identification and analysis of known and foreseeable risks to health, safety, or fundamental rights when used for its intended purpose.",
+            "Estimation and evaluation of risks when used for its intended purpose and under conditions of reasonably foreseeable misuse.",
+            "Evaluation of other risks based on post-market monitoring data.",
+            "Adoption of appropriate and targeted risk management measures to address identified risks."
+          ]
+        },
+        {
+          "id": "q_risk_management_measures_ensured",
+          "type": "checkbox",
+          "text": "Which of the following are ensured when identifying risk management measures (Article 9(5))? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_risk_management_system_established === 'Yes'",
+          "options": [
+            "Elimination or reduction of identified risks through adequate design and development (as far as technically feasible).",
+            "Implementation of adequate mitigation and control measures for risks that cannot be eliminated.",
+            "Provision of information to deployers and, where appropriate, training."
+          ]
+        },
+        {
+          "id": "q_high_risk_system_tested",
+          "type": "radio",
+          "text": "Has the high-risk AI system been tested for the purpose of identifying the most appropriate and targeted risk management measures (Article 9(6))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_risk_management_system_established === 'Yes'"
+        },
+        {
+          "id": "q_high_risk_testing_details",
+          "type": "textarea",
+          "text": "Describe the testing procedures and how they ensure consistent performance for the intended purpose and compliance with requirements (Article 9(6,8)):",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_high_risk_system_tested === 'Yes'",
+          "placeholder": "e.g., 'Unit testing, integration testing, and end-to-end system testing conducted at various stages of development. Performance metrics and probabilistic thresholds were predefined.'"
+        },
+        {
+          "id": "q_data_governance_established",
+          "type": "radio",
+          "text": "Are training, validation, and testing datasets subject to data governance and management practices appropriate for the intended purpose of the high-risk AI system (Article 10(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_data_governance_practices_covered",
+          "type": "checkbox",
+          "text": "Which of the following aspects do your data governance practices concern (Article 10(2))? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_data_governance_established === 'Yes'",
+          "options": [
+            "Relevant design choices.",
+            "Data collection processes and origin of data (including original purpose for personal data).",
+            "Relevant data-preparation operations (e.g., annotation, labelling, cleaning, updating, enrichment, aggregation).",
+            "Formulation of assumptions (especially regarding information data are supposed to measure and represent).",
+            "Assessment of availability, quantity, and suitability of datasets.",
+            "Examination for possible biases (affecting health, safety, fundamental rights, or discrimination).",
+            "Appropriate measures to detect, prevent, and mitigate identified biases.",
+            "Identification of relevant data gaps or shortcomings and how they can be addressed."
+          ]
+        },
+        {
+          "id": "q_special_categories_data_processed_bias",
+          "type": "radio",
+          "text": "Is special categories of personal data processed for bias detection and correction (Article 10(5))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && (q_data_governance_practices_covered.includes('Examination for possible biases (affecting health, safety, fundamental rights, or discrimination).') || q_data_governance_practices_covered.includes('Appropriate measures to detect, prevent, and mitigate identified biases.'))"
+        },
+        {
+          "id": "q_special_categories_data_safeguards",
+          "type": "checkbox",
+          "text": "If special categories of personal data are processed for bias detection/correction, confirm that the following conditions are met (Article 10(5)):",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_special_categories_data_processed_bias === 'Yes'",
+          "options": [
+            "The special categories of personal data are deleted once the bias has been corrected or the personal data has reached the end of its retention period, whichever comes first.",
+            "Records of processing activities include reasons why processing of special categories of personal data was strictly necessary for bias detection/correction and why this objective could not be achieved by processing other data."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tab_hr_tech_docs_logs",
+      "title": "High-Risk AI - Technical Documentation & Logs",
+      "layout": [
+        "lbl_hr_tech_docs_logs_intro",
+        "q_technical_documentation_drawn_up",
+        "q_sme_simplified_documentation",
+        "q_technical_documentation_elements",
+        "q_logging_capabilities_enabled",
+        "q_logging_capabilities_traceability",
+        "q_logging_period_provider",
+        "q_logging_period_deployer",
+        "q_annex_iii_1a_system",
+        "q_annex_iii_1a_logging_details"
+      ],
+      "questions": [
+        {
+          "id": "lbl_hr_tech_docs_logs_intro",
+          "type": "label",
+          "text": "This section covers technical documentation and logging obligations for high-risk AI systems (Articles 11 & 12).",
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_technical_documentation_drawn_up",
+          "type": "radio",
+          "text": "Has the technical documentation for the AI system been drawn up before placing it on the market or putting it into service, and is it kept up-to-date (Article 11(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_sme_simplified_documentation",
+          "type": "radio",
+          "text": "Are you an SME (including start-up) that has opted to use the simplified technical documentation form?",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_technical_documentation_drawn_up === 'Yes'",
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "id": "q_technical_documentation_elements",
+          "type": "checkbox",
+          "text": "Which of the following elements are included in your technical documentation (Annex IV)? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_technical_documentation_drawn_up === 'Yes'",
+          "options": [
+            "General description of the AI system (e.g., intended purpose, provider name, version, interaction with hardware/software, forms of market placement, hardware, user-interface, instructions for use).",
+            "Detailed description of development process (e.g., methods, design specifications, architecture, computational resources, data requirements, human oversight assessment, pre-determined changes, validation/testing procedures, cybersecurity measures).",
+            "Detailed information about monitoring, functioning, and control (e.g., capabilities, limitations, accuracy, foreseeable unintended outcomes, human oversight measures, input data specifications).",
+            "Description of appropriateness of performance metrics.",
+            "Detailed description of the risk management system (Article 9).",
+            "Description of relevant changes made through its lifecycle.",
+            "List of harmonised standards applied, or description of solutions for compliance.",
+            "Copy of the EU declaration of conformity (Article 47).",
+            "Detailed description of the post-market monitoring system (Article 72)."
+          ]
+        },
+        {
+          "id": "q_logging_capabilities_enabled",
+          "type": "radio",
+          "text": "Does the high-risk AI system technically allow for the automatic recording of events (logs) over its lifetime (Article 12(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_logging_capabilities_traceability",
+          "type": "checkbox",
+          "text": "If logging capabilities are enabled, for which of the following purposes do they enable the recording of events (Article 12(2))? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_logging_capabilities_enabled === 'Yes'",
+          "options": [
+            "Identifying situations that may result in the system presenting a risk or in a substantial modification.",
+            "Facilitating post-market monitoring.",
+            "Monitoring the operation of high-risk AI systems referred to in Article 26(5)."
+          ]
+        },
+        {
+          "id": "q_logging_period_provider",
+          "type": "radio",
+          "text": "As a provider, do you keep the automatically generated logs, to the extent they are under your control, for a period appropriate to the intended purpose, and for at least six months (Article 19(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_logging_capabilities_enabled === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_logging_period_deployer",
+          "type": "radio",
+          "text": "As a deployer, do you keep the automatically generated logs, to the extent they are under your control, for a period appropriate to the intended purpose, and for at least six months (Article 26(6))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_logging_capabilities_enabled === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_annex_iii_1a_system",
+          "type": "radio",
+          "text": "Is this high-risk AI system referred to in point 1(a) of Annex III (AI systems intended to be used as a safety component of products)?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "tooltip": "This applies to systems integral to the safety functions of products covered by specific EU legislation.",
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_annex_iii_1a_logging_details",
+          "type": "checkbox",
+          "text": "If this is an Annex III point 1(a) system, do your logging capabilities provide at a minimum (Article 12(3))? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_annex_iii_1a_system === 'Yes' && q_logging_capabilities_enabled === 'Yes'",
+          "options": [
+            "Recording of the period of each use (start/end date and time).",
+            "Reference database against which input data has been checked.",
+            "Input data for which search led to a match.",
+            "Identification of natural persons involved in verification of results (as per Article 14(5))."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tab_hr_transparency_oversight",
+      "title": "High-Risk AI - Transparency & Human Oversight",
+      "layout": [
+        "lbl_hr_transparency_oversight_intro",
+        "q_instructions_for_use_quality_and_format",
+        "q_instructions_for_use_content",
+        "q_human_oversight_design",
+        "q_human_oversight_measures_commensurate",
+        "q_human_oversight_facilitation",
+        "q_annex_iii_1a_human_oversight_verified",
+        "q_annex_iii_1a_human_oversight_exception"
+      ],
+      "questions": [
+        {
+          "id": "lbl_hr_transparency_oversight_intro",
+          "type": "label",
+          "text": "This section covers transparency and human oversight obligations for high-risk AI systems (Articles 13 & 14).",
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_instructions_for_use_quality_and_format",
+          "type": "checkbox",
+          "text": "I confirm that the instructions for use are provided in an appropriate digital format or otherwise, and are concise, complete, correct, clear, relevant, accessible, and comprehensible to deployers (Article 13(2)).",
+          "required": true,
+          "options": [
+            "I confirm"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_instructions_for_use_content",
+          "type": "checkbox",
+          "text": "Which of the following information do the instructions for use contain (Article 13(3))? Select all that apply:",
+          "required": true,
+          "options": [
+            "Identity and contact details of the provider and authorized representative (if applicable).",
+            "Characteristics, capabilities, and limitations of performance (e.g., intended purpose, accuracy, robustness, cybersecurity levels, foreseeable circumstances leading to risks, technical capabilities for output explanation, performance for specific persons/groups, input data specifications, interpretation guidance).",
+            "Pre-determined changes to the system and its performance.",
+            "Human oversight measures (Article 14), including technical measures for output interpretation.",
+            "Computational/hardware resources needed, expected lifetime, maintenance/care measures (including frequency and software updates).",
+            "Description of mechanisms for deployers to collect, store, and interpret logs (Article 12)."
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_instructions_for_use_quality_and_format.includes('I confirm')"
+        },
+        {
+          "id": "q_human_oversight_design",
+          "type": "checkbox",
+          "text": "I confirm that the high-risk AI system is designed and developed in such a way, including with appropriate human-machine interface tools, that it can be effectively overseen by natural persons during the period in which it is in use (Article 14(1)).",
+          "required": true,
+          "options": [
+            "I confirm"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_human_oversight_measures_commensurate",
+          "type": "checkbox",
+          "text": "I confirm that human oversight measures are commensurate with the risks, level of autonomy, and context of use of the system, and are ensured through (Article 14(3)):",
+          "required": true,
+          "options": [
+            "Measures identified and built into the high-risk AI system by the provider (Article 14(3)(a)).",
+            "Measures identified by the provider and appropriate to be implemented by the deployer (Article 14(3)(b))."
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_human_oversight_facilitation",
+          "type": "checkbox",
+          "text": "Do the human oversight provisions enable natural persons to whom oversight is assigned to, as appropriate and proportionate (Article 14(4))? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'",
+          "options": [
+            "Properly understand relevant capacities and limitations, and monitor operation for anomalies, dysfunctions, and unexpected performance.",
+            "Remain aware of possible automation bias.",
+            "Correctly interpret the system's output.",
+            "Decide not to use the system or disregard/override/reverse its output.",
+            "Intervene or interrupt the system through a 'stop' button or similar procedure."
+          ]
+        },
+        {
+          "id": "q_annex_iii_1a_human_oversight_verified",
+          "type": "checkbox",
+          "text": "I confirm that for high-risk AI systems referred to in point 1(a) of Annex III, measures are in place to ensure that no action or decision is taken by the deployer based solely on the system's identification unless separately verified and confirmed by at least two natural persons with necessary competence, training, and authority (Article 14(5)).",
+          "required": true,
+          "options": [
+            "I confirm"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_annex_iii_1a_system === 'Yes'"
+        },
+        {
+          "id": "q_annex_iii_1a_human_oversight_exception",
+          "type": "radio",
+          "text": "Does this Annex III 1(a) system fall under an exception where the two-person verification is deemed disproportionate by Union or national law (e.g., law enforcement, migration, border control, asylum) (Article 14(5))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_annex_iii_1a_system === 'Yes' && !q_annex_iii_1a_human_oversight_verified.includes('I confirm')"
+        }
+      ]
+    },
+    {
+      "id": "tab_hr_arc",
+      "title": "High-Risk AI - Accuracy, Robustness & Cybersecurity",
+      "layout": [
+        "lbl_hr_arc_intro",
+        "q_accuracy_levels_declared",
+        "q_robustness_measures_description",
+        "q_cybersecurity_threats_addressed",
+        "q_cybersecurity_measures_description"
+      ],
+      "questions": [
+        {
+          "id": "lbl_hr_arc_intro",
+          "type": "label",
+          "text": "This section covers accuracy, robustness, and cybersecurity obligations for high-risk AI systems (Article 15).",
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_accuracy_levels_declared",
+          "type": "radio",
+          "text": "Are the levels of accuracy and relevant accuracy metrics of the high-risk AI system declared in the accompanying instructions for use (Article 15(3))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_robustness_measures_description",
+          "type": "textarea",
+          "text": "Describe the technical and organisational measures taken to ensure the high-risk AI system is as resilient as possible regarding errors, faults, or inconsistencies, as required by Article 15(4), including measures for resilience due to interaction with natural persons or other systems.",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'",
+          "placeholder": "e.g., 'Implementation of redundant systems, error detection and correction mechanisms, and fault-tolerant software design.'"
+        },
+        {
+          "id": "q_cybersecurity_threats_addressed",
+          "type": "checkbox",
+          "text": "Which AI-specific vulnerabilities do your technical solutions address (Article 15(5))? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'",
+          "options": [
+            "Attacks trying to manipulate the training data set (data poisoning).",
+            "Attacks trying to manipulate pre-trained components (model poisoning).",
+            "Inputs designed to cause the AI model to make a mistake (adversarial examples or model evasion).",
+            "Confidentiality attacks.",
+            "Model flaws.",
+            "None of the above / Not applicable"
+          ]
+        },
+        {
+          "id": "q_cybersecurity_measures_description",
+          "type": "textarea",
+          "text": "Describe the technical solutions implemented to ensure the cybersecurity of the high-risk AI system, appropriate to relevant circumstances and risks (Article 15(5)), including resilience against attempts by unauthorized third parties to alter use, outputs, or performance.",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'",
+          "placeholder": "e.g., 'Use of cryptographic techniques for data integrity, secure API endpoints, and regular vulnerability assessments and penetration testing.'"
+        }
+      ]
+    },
+    {
+      "id": "tab_hr_qms_conformity",
+      "title": "High-Risk AI - Quality Management & Conformity",
+      "layout": [
+        "lbl_hr_qms_conformity_intro",
+        "q_qms_in_place",
+        "q_qms_documented",
+        "q_qms_aspects_covered",
+        "q_conformity_assessment_performed",
+        "q_conformity_assessment_importer_verified",
+        "q_conformity_assessment_distributor_verified",
+        "q_substantial_modification_new_assessment",
+        "q_eu_declaration_of_conformity_drawn_up",
+        "q_eu_declaration_of_conformity_content",
+        "q_eu_declaration_of_conformity_language",
+        "q_eu_declaration_of_conformity_importer_verified",
+        "q_importer_verification_additional",
+        "q_eu_declaration_of_conformity_distributor_verified",
+        "q_ce_marking_affixed",
+        "q_ce_marking_importer_verified",
+        "q_ce_marking_distributor_verified",
+        "q_authorised_representative_verification",
+        "q_documentation_kept_provider",
+        "q_documentation_kept_importer",
+        "q_documentation_kept_authorised_representative"
+      ],
+      "questions": [
+        {
+          "id": "lbl_hr_qms_conformity_intro",
+          "type": "label",
+          "text": "This section covers quality management systems, conformity assessment, and CE marking for high-risk AI systems (Articles 16, 17, 43, 47, 48).",
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_qms_in_place",
+          "type": "radio",
+          "text": "As a provider, have you put a quality management system (QMS) in place that ensures compliance with this Regulation (Article 16(c), 17(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_qms_documented",
+          "type": "radio",
+          "text": "Is your QMS documented in a systematic and orderly manner (written policies, procedures, instructions) (Article 17(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_qms_in_place === 'Yes'"
+        },
+        {
+          "id": "q_qms_aspects_covered",
+          "type": "checkbox",
+          "text": "Which of the following aspects does your QMS include (Article 17(1))? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_qms_in_place === 'Yes'",
+          "options": [
+            "Strategy for regulatory compliance, including conformity assessment procedures and management of modifications.",
+            "Techniques, procedures, and systematic actions for design, design control, and design verification.",
+            "Techniques, procedures, and systematic actions for development, quality control, and quality assurance.",
+            "Examination, test, and validation procedures to be carried out before, during, and after development, and their frequency.",
+            "Technical specifications and standards to be applied, and means to ensure compliance if harmonised standards are not fully applied.",
+            "Systems and procedures for data management (acquisition, collection, analysis, labelling, storage, filtration, mining, aggregation, retention, etc.).",
+            "The risk management system (Article 9).",
+            "Setting-up, implementation, and maintenance of a post-market monitoring system (Article 72).",
+            "Procedures for reporting serious incidents (Article 73).",
+            "Handling of communication with national competent authorities, other authorities, notified bodies, other operators, customers, or interested parties.",
+            "Systems and procedures for record-keeping of all relevant documentation and information.",
+            "Resource management, including security-of-supply related measures.",
+            "Accountability framework setting out responsibilities of management and staff."
+          ]
+        },
+        {
+          "id": "q_conformity_assessment_performed",
+          "type": "radio",
+          "text": "As a provider, has the high-risk AI system undergone the relevant conformity assessment procedure prior to being placed on the market or put into service (Article 16(f))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_conformity_assessment_importer_verified",
+          "type": "radio",
+          "text": "As an importer, have you verified that the relevant conformity assessment procedure has been carried out by the provider (Article 23(1a))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Importer')"
+        },
+        {
+          "id": "q_conformity_assessment_distributor_verified",
+          "type": "checkbox",
+          "text": "As a distributor, have you verified that the provider and importer (if applicable) have complied with the following obligations as laid down in Article 24(1)? Select all that apply:",
+          "required": true,
+          "options": [
+            "Provider has indicated their name, registered trade name or trade mark, and contact address on the AI system, its packaging, or accompanying documentation (Article 16(b)).",
+            "Provider has a quality management system in place which complies with Article 17 (Article 16(c)).",
+            "Importer has ensured that the provider complies with registration obligations referred to in Article 49(1) (Article 23(3)).",
+            "High-risk AI system is accompanied by instructions for use (Article 24(1)).",
+            "None of the above / Not applicable"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Distributor')"
+        },
+        {
+          "id": "q_substantial_modification_new_assessment",
+          "type": "radio",
+          "text": "In the event of a substantial modification to the high-risk AI system, has a new conformity assessment procedure been undergone (Article 43(4))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "tooltip": "This applies regardless of whether the modified system is further distributed or used by the current deployer. Pre-determined changes for continuously learning systems are not considered substantial modifications.",
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_eu_declaration_of_conformity_drawn_up",
+          "type": "radio",
+          "text": "As a provider, have you drawn up a written, machine-readable, physical, or electronically signed EU declaration of conformity for each high-risk AI system (Article 16(g), 47(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_eu_declaration_of_conformity_content",
+          "type": "checkbox",
+          "text": "Does the EU declaration of conformity contain the following information (Annex V)? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_eu_declaration_of_conformity_drawn_up === 'Yes'",
+          "options": [
+            "AI system name, type, and unambiguous reference for identification/traceability.",
+            "Name and address of the provider or authorized representative.",
+            "Statement that the declaration is issued under the sole responsibility of the provider.",
+            "Statement that the AI system conforms with the Regulation and other relevant Union law.",
+            "Statement that the AI system complies with data protection regulations (GDPR, Directive (EU) 2016/680) if processing personal data.",
+            "References to harmonised standards or common specifications.",
+            "Name and identification number of the notified body, description of conformity assessment, and certificate ID (if applicable).",
+            "Place and date of issue, name/function of signatory, and indication for whom they signed."
+          ]
+        },
+        {
+          "id": "q_eu_declaration_of_conformity_language",
+          "type": "radio",
+          "text": "Is the EU declaration of conformity translated into a language easily understood by the national competent authorities of the Member States where the system is placed on the market or made available (Article 47(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_eu_declaration_of_conformity_drawn_up === 'Yes'"
+        },
+        {
+          "id": "q_eu_declaration_of_conformity_importer_verified",
+          "type": "radio",
+          "text": "As an importer, have you verified that the high-risk AI system is accompanied by the EU declaration of conformity (Article 23(1c))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Importer')"
+        },
+        {
+          "id": "q_importer_verification_additional",
+          "type": "checkbox",
+          "text": "As an importer, have you verified the following regarding the high-risk AI system and its provider (Article 23(1))? Select all that apply:",
+          "required": true,
+          "options": [
+            "The provider has drawn up the technical documentation in accordance with Article 11 and Annex IV (Article 23(1b)).",
+            "The system is accompanied by instructions for use (Article 23(1c)).",
+            "The provider has appointed an authorised representative in accordance with Article 22(1) (Article 23(1d)).",
+            "None of the above / Not applicable"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Importer')"
+        },
+        {
+          "id": "q_eu_declaration_of_conformity_distributor_verified",
+          "type": "radio",
+          "text": "As a distributor, have you verified that the high-risk AI system is accompanied by a copy of the EU declaration of conformity (Article 24(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Distributor')"
+        },
+        {
+          "id": "q_ce_marking_affixed",
+          "type": "radio",
+          "text": "As a provider, is the CE marking affixed visibly, legibly, and indelibly to the high-risk AI system or, where not possible, to its packaging or accompanying documentation (Article 16(h), 48(3))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_ce_marking_importer_verified",
+          "type": "radio",
+          "text": "As an importer, have you verified that the system bears the required CE marking (Article 23(1c))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Importer')"
+        },
+        {
+          "id": "q_ce_marking_distributor_verified",
+          "type": "radio",
+          "text": "As a distributor, have you verified that the system bears the required CE marking (Article 24(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Distributor')"
+        },
+        {
+          "id": "q_authorised_representative_verification",
+          "type": "checkbox",
+          "text": "As an authorised representative, have you verified the following regarding the high-risk AI system (Article 22(3a))? Select all that apply:",
+          "options": [
+            "The EU declaration of conformity (Article 47) has been drawn up by the provider.",
+            "The technical documentation (Article 11) has been drawn up by the provider.",
+            "An appropriate conformity assessment procedure has been carried out by the provider.",
+            "None of the above / Not applicable"
+          ],
+          "required": true,
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Authorized Representative')"
+        },
+        {
+          "id": "q_documentation_kept_provider",
+          "type": "checkbox",
+          "text": "As a provider, do you keep the following documentation at the disposal of national competent authorities for 10 years after the system is placed on the market or put into service (Article 18(1))? Select all that apply:",
+          "required": true,
+          "options": [
+            "Technical documentation (Article 11).",
+            "Documentation concerning the quality management system (Article 17).",
+            "Documentation concerning changes approved by notified bodies (if applicable).",
+            "Decisions and other documents issued by notified bodies (if applicable).",
+            "EU declaration of conformity (Article 47).",
+            "None of the above / Not applicable"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_documentation_kept_importer",
+          "type": "checkbox",
+          "text": "As an importer, do you keep the following documentation for 10 years after the system is placed on the market or put into service (Article 23(5))? Select all that apply:",
+          "required": true,
+          "options": [
+            "Copy of the certificate issued by the notified body (if applicable).",
+            "Instructions for use.",
+            "EU declaration of conformity (Article 47).",
+            "None of the above / Not applicable"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Importer')"
+        },
+        {
+          "id": "q_documentation_kept_authorised_representative",
+          "type": "checkbox",
+          "text": "As an authorised representative, do you keep the following documentation at the disposal of competent authorities for 10 years after the system is placed on the market or put into service (Article 22(3b))? Select all that apply:",
+          "required": true,
+          "options": [
+            "Contact details of the provider that appointed you.",
+            "Copy of the EU declaration of conformity (Article 47).",
+            "Technical documentation (Article 11).",
+            "Certificate issued by the notified body (if applicable).",
+            "None of the above / Not applicable"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Authorized Representative')"
+        }
+      ]
+    },
+    {
+      "id": "tab_hr_post_market",
+      "title": "High-Risk AI - Post-Market & Incidents",
+      "layout": [
+        "lbl_hr_post_market_intro",
+        "q_post_market_monitoring_system_established",
+        "q_post_market_monitoring_plan",
+        "q_post_market_data_collection",
+        "q_deployer_monitors_operation",
+        "q_deployer_informs_provider_risk",
+        "q_deployer_informs_provider_serious_incident",
+        "q_deployer_serious_incident_provider_unreachable",
+        "q_provider_corrective_actions",
+        "q_provider_informs_distributors",
+        "q_provider_informs_msa_risk",
+        "q_serious_incident_reported_provider",
+        "q_serious_incident_initial_report",
+        "q_provider_cooperates_investigation",
+        "q_provider_info_upon_request",
+        "q_provider_log_access_upon_request",
+        "q_importer_info_upon_request"
+      ],
+      "questions": [
+        {
+          "id": "lbl_hr_post_market_intro",
+          "type": "label",
+          "text": "This section covers post-market monitoring, corrective actions, and incident reporting for high-risk AI systems (Articles 16, 20, 72, 73).",
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_post_market_monitoring_system_established",
+          "type": "radio",
+          "text": "As a provider, have you established and documented a post-market monitoring system proportionate to the nature of the AI technologies and risks (Article 72(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_post_market_monitoring_plan",
+          "type": "radio",
+          "text": "Is your post-market monitoring system based on a post-market monitoring plan, and is this plan part of the technical documentation (Article 72(3))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_post_market_monitoring_system_established === 'Yes'"
+        },
+        {
+          "id": "q_post_market_data_collection",
+          "type": "radio",
+          "text": "Does your post-market monitoring system actively and systematically collect, document, and analyze relevant data to evaluate continuous compliance (Article 72(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_post_market_monitoring_system_established === 'Yes'"
+        },
+        {
+          "id": "q_deployer_monitors_operation",
+          "type": "radio",
+          "text": "As a deployer, do you monitor the operation of the high-risk AI system based on the instructions for use (Article 26(5))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_deployer_informs_provider_risk",
+          "type": "radio",
+          "text": "As a deployer, if you have reason to consider that the system's use may result in a risk, do you inform the provider/distributor and the relevant market surveillance authority without undue delay and suspend its use (Article 26(5))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_deployer_informs_provider_serious_incident",
+          "type": "radio",
+          "text": "As a deployer, if you identify a serious incident, do you immediately inform the provider, and then the importer/distributor and relevant market surveillance authorities (Article 26(5))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_deployer_serious_incident_provider_unreachable",
+          "type": "radio",
+          "text": "As a deployer, if you identify a serious incident and are not able to reach the provider, do you then apply the reporting obligations outlined in Article 73 (mutatis mutandis)?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_provider_corrective_actions",
+          "type": "radio",
+          "text": "As a provider, if you consider or have reason to consider that the system is not in conformity, do you immediately take necessary corrective actions (e.g., bring into conformity, withdraw, disable, recall) (Article 20(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_provider_informs_distributors",
+          "type": "radio",
+          "text": "As a provider, do you inform distributors, deployers, authorized representatives, and importers of corrective actions (Article 20(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_provider_corrective_actions === 'Yes'"
+        },
+        {
+          "id": "q_provider_informs_msa_risk",
+          "type": "radio",
+          "text": "As a provider, if the system presents a risk and you become aware of it, do you immediately investigate causes and inform market surveillance authorities and notified bodies of the non-compliance and actions taken (Article 20(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_serious_incident_reported_provider",
+          "type": "radio",
+          "text": "As a provider, are serious incidents reported to the market surveillance authorities of the Member States where they occurred, immediately after establishing a causal link or reasonable likelihood, and no later than 15 days after becoming aware (Article 73(1,2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_serious_incident_initial_report",
+          "type": "radio",
+          "text": "If necessary for timely reporting, do you submit an initial, incomplete report followed by a complete report for serious incidents (Article 73(5))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_serious_incident_reported_provider === 'Yes'"
+        },
+        {
+          "id": "q_provider_cooperates_investigation",
+          "type": "radio",
+          "text": "As a provider, do you cooperate with competent authorities during serious incident investigations and avoid altering the system in a way that affects evaluation without informing them (Article 73(6))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_serious_incident_reported_provider === 'Yes'"
+        },
+        {
+          "id": "q_provider_info_upon_request",
+          "type": "radio",
+          "text": "As a provider, upon a reasoned request, do you provide competent authorities with all information and documentation necessary to demonstrate conformity, in an easily understood language (Article 21(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_provider_log_access_upon_request",
+          "type": "radio",
+          "text": "As a provider, upon a reasoned request, do you give competent authorities access to automatically generated logs to the extent they are under your control (Article 21(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_importer_info_upon_request",
+          "type": "radio",
+          "text": "As an importer, upon a reasoned request, do you provide competent authorities with all necessary information and documentation to demonstrate conformity, in an easily understood language, ensuring technical documentation is available (Article 23(6))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Importer')"
+        }
+      ]
+    },
+    {
+      "id": "tab_hr_value_deployer",
+      "title": "High-Risk AI - Value Chain & Deployer Specifics",
+      "layout": [
+        "lbl_hr_value_deployer_intro",
+        "q_value_chain_cooperation",
+        "q_provider_uses_third_party_suppliers",
+        "q_value_chain_agreements",
+        "q_deployer_uses_instructions",
+        "q_deployer_assigns_human_oversight",
+        "q_deployer_input_data_relevant",
+        "q_deployer_is_employer",
+        "q_deployer_informs_workers",
+        "q_deployer_dpia_conducted",
+        "q_deployer_informs_subjects_hr_system",
+        "q_deployer_is_public_authority",
+        "q_deployer_is_public_body_or_services_provider",
+        "q_deployer_check_provider_registration",
+        "q_is_hr_annex_iii_5b_c",
+        "q_is_hr_annex_iii_2",
+        "q_is_realtime_remote_biometric_id_le_public_spaces",
+        "q_deployer_fria_performed",
+        "q_deployer_fria_elements",
+        "q_deployer_fria_previously_conducted",
+        "q_deployer_fria_updated",
+        "q_deployer_fria_notified"
+      ],
+      "questions": [
+        {
+          "id": "lbl_hr_value_deployer_intro",
+          "type": "label",
+          "text": "This section covers value chain responsibilities and specific deployer obligations for high-risk AI systems (Articles 25, 26, 27).",
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes'"
+        },
+        {
+          "id": "q_value_chain_cooperation",
+          "type": "radio",
+          "text": "If changes in the AI system's use or purpose lead to a new provider, does the initial provider cooperate and provide necessary information/assistance for compliance (Article 25(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_provider_uses_third_party_suppliers",
+          "type": "radio",
+          "text": "As a provider, do you rely on third-party suppliers for components, services, or processes that are used or integrated into this high-risk AI system?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_value_chain_agreements",
+          "type": "radio",
+          "text": "As a provider, if you rely on third-party suppliers for components/services, do you have written agreements specifying information, capabilities, technical access, and assistance to ensure your compliance with the Regulation (Article 25(4))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Provider') && q_provider_uses_third_party_suppliers === 'Yes'"
+        },
+        {
+          "id": "q_deployer_uses_instructions",
+          "type": "radio",
+          "text": "As a deployer, do you take appropriate technical and organisational measures to ensure the system is used in accordance with its instructions for use (Article 26(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_deployer_assigns_human_oversight",
+          "type": "radio",
+          "text": "As a deployer, do you assign human oversight to natural persons with the necessary competence, training, authority, and support (Article 26(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_deployer_input_data_relevant",
+          "type": "radio",
+          "text": "As a deployer exercising control over input data, do you ensure that input data is relevant and sufficiently representative in view of the intended purpose of the system (Article 26(4))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_deployer_is_employer",
+          "type": "radio",
+          "text": "As a deployer, are you an employer putting into service or using this high-risk AI system at the workplace (Article 26(7))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_deployer_informs_workers",
+          "type": "radio",
+          "text": "If an employer, do you inform workers' representatives and affected workers that they will be subject to the use of the high-risk AI system, in accordance with applicable rules (Article 26(7))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_deployer_is_employer === 'Yes'"
+        },
+        {
+          "id": "q_deployer_dpia_conducted",
+          "type": "radio",
+          "text": "As a deployer, have you used information provided under Article 13 to comply with your obligation to carry out a Data Protection Impact Assessment (DPIA) under GDPR or Directive (EU) 2016/680 (Article 26(9))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_deployer_informs_subjects_hr_system",
+          "type": "radio",
+          "text": "As a deployer, do you inform natural persons that they are subject to the use of the high-risk AI system (Article 26(11))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_deployer_is_public_authority",
+          "type": "radio",
+          "text": "As a deployer, are you a public authority, or a Union institution, body, office or agency (Article 26(8))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_deployer_is_public_body_or_services_provider",
+          "type": "radio",
+          "text": "Is the deployer a body governed by public law or a private entity providing public services?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_deployer_check_provider_registration",
+          "type": "radio",
+          "text": "As a public authority deployer, if you found that the high-risk AI system was not registered in the EU database, did you refrain from using it and inform the provider or distributor (Article 26(8))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No",
+            "Not Applicable (system was registered)"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer') && q_deployer_is_public_authority === 'Yes'"
+        },
+        {
+          "id": "q_is_hr_annex_iii_5b_c",
+          "type": "radio",
+          "text": "Is this a high-risk AI system intended for use in employment, worker management, and access to self-employment, specifically falling under Annex III points 5(b) or 5(c)?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_is_hr_annex_iii_2",
+          "type": "radio",
+          "text": "Is this high-risk AI system intended for dispatching or establishing priority in the dispatching of emergency first response services (Annex III, point 2)?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_is_realtime_remote_biometric_id_le_public_spaces",
+          "type": "radio",
+          "text": "Is this AI system a real-time remote biometric identification system used by law enforcement in publicly accessible spaces?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer') && q_is_realtime_remote_biometric_id === 'Yes'"
+        },
+        {
+          "id": "q_deployer_fria_performed",
+          "type": "radio",
+          "text": "As the deployer of this high-risk AI system, for which a Fundamental Rights Impact Assessment (FRIA) is legally required, have you performed it prior to deployment?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "(q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')) && ((q_deployer_is_public_body_or_services_provider === 'Yes' && q_is_hr_annex_iii_2 === 'No') || q_is_hr_annex_iii_5b_c === 'Yes' || q_is_realtime_remote_biometric_id_le_public_spaces === 'Yes')"
+        },
+        {
+          "id": "q_deployer_fria_elements",
+          "type": "checkbox",
+          "text": "Which elements does your FRIA assessment include (Article 27(1))? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "(q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')) && ((q_deployer_is_public_body_or_services_provider === 'Yes' && q_is_hr_annex_iii_2 === 'No') || q_is_hr_annex_iii_5b_c === 'Yes' || q_is_realtime_remote_biometric_id_le_public_spaces === 'Yes') && q_deployer_fria_performed === 'Yes'",
+          "options": [
+            "Description of processes in which the system will be used in line with its intended purpose.",
+            "Description of the period and frequency of system use.",
+            "Categories of natural persons and groups likely to be affected.",
+            "Specific risks of harm to affected persons/groups, taking into account provider information (Article 13).",
+            "Description of human oversight measures implementation.",
+            "Measures to be taken if risks materialise, including internal governance and complaint mechanisms."
+          ]
+        },
+        {
+          "id": "q_deployer_fria_previously_conducted",
+          "type": "radio",
+          "text": "For subsequent uses of similar high-risk AI systems, do you rely on previously conducted FRIAs or existing impact assessments by the provider (Article 27(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "(q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')) && ((q_deployer_is_public_body_or_services_provider === 'Yes' && q_is_hr_annex_iii_2 === 'No') || q_is_hr_annex_iii_5b_c === 'Yes' || q_is_realtime_remote_biometric_id_le_public_spaces === 'Yes') && q_deployer_fria_performed === 'Yes'"
+        },
+        {
+          "id": "q_deployer_fria_updated",
+          "type": "radio",
+          "text": "If elements of the FRIA change or are no longer up-to-date, have you updated the information (Article 27(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "(q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')) && ((q_deployer_is_public_body_or_services_provider === 'Yes' && q_is_hr_annex_iii_2 === 'No') || q_is_hr_annex_iii_5b_c === 'Yes' || q_is_realtime_remote_biometric_id_le_public_spaces === 'Yes') && q_deployer_fria_performed === 'Yes'"
+        },
+        {
+          "id": "q_deployer_fria_notified",
+          "type": "radio",
+          "text": "Have you notified the market surveillance authority of the results of your FRIA, submitting the filled-out template (Article 27(3))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "(q_is_ai_system_high_risk === 'Yes' && q_party_role.includes('Deployer')) && ((q_deployer_is_public_body_or_services_provider === 'Yes' && q_is_hr_annex_iii_2 === 'No') || q_is_hr_annex_iii_5b_c === 'Yes' || q_is_realtime_remote_biometric_id_le_public_spaces === 'Yes') && q_deployer_fria_performed === 'Yes'"
+        }
+      ]
+    },
+    {
+      "id": "tab_biometric_id_realtime_le",
+      "title": "Special Case - Real-time Remote Biometric ID (Law Enforcement)",
+      "layout": [
+        "lbl_biometric_id_realtime_le_intro",
+        "q_le_biometric_id_fria_completed",
+        "q_le_biometric_id_conditions_met",
+        "q_le_biometric_id_elements_considered",
+        "q_le_biometric_id_registration_eu_db",
+        "q_le_biometric_id_registration_urgency_completed",
+        "q_le_biometric_id_no_sole_decision_on_output",
+        "q_le_biometric_id_prior_authorization",
+        "q_le_biometric_id_authorization_urgency_requested",
+        "q_le_biometric_id_auth_rejected_data_deleted",
+        "q_le_biometric_id_notification_authorities",
+        "q_le_biometric_id_national_rules_laid_down",
+        "q_le_biometric_id_notification_content",
+        "q_le_biometric_id_notification_national_content"
+      ],
+      "questions": [
+        {
+          "id": "lbl_biometric_id_realtime_le_intro",
+          "type": "label",
+          "text": "This section covers specific obligations for 'real-time' remote biometric identification systems used in publicly accessible spaces for law enforcement purposes (Article 5).",
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes'"
+        },
+        {
+          "id": "q_le_biometric_id_fria_completed",
+          "type": "radio",
+          "text": "Has a fundamental rights impact assessment (as provided for in Article 27) been completed for the use of this system (Article 5(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_le_biometric_id_conditions_met",
+          "type": "radio",
+          "text": "As a deployer, if you are using this 'real-time' remote biometric identification system for law enforcement purposes, do you ensure that its use is (a) solely for confirming the identity of a specifically targeted individual, (b) strictly necessary and proportionate for one of the exhaustively listed objectives (e.g., targeted search for specific victims, preventing specific imminent threats, or identifying perpetrators of serious crimes), and (c) subject to appropriate temporal, geographic, and personal limitations (Article 5(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "tooltip": "This refers to the stringent conditions for the use of real-time remote biometric identification systems in publicly accessible spaces for law enforcement purposes, requiring adherence to necessity, proportionality, and strict limitations.",
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_le_biometric_id_elements_considered",
+          "type": "checkbox",
+          "text": "When assessing the necessity, proportionality, and limitations of this real-time remote biometric identification system as per Article 5(2), indicate which of the following elements have been explicitly and specifically considered (Article 5(2)(a) and (b)):",
+          "required": true,
+          "options": [
+            "The nature of the situation giving rise to the possible use, including the seriousness, probability, and scale of harm that would be caused if the system were not used (Article 5(2)(a)).",
+            "The consequences of the use of the system for the rights and freedoms of all persons concerned, including the seriousness, probability, and scale of those consequences (Article 5(2)(b))."
+          ],
+          "tooltip": "This question addresses the explicit and specific consideration of the elements outlined in Article 5(2)(a) and (b) of the AI Act, which are crucial for ensuring necessity and proportionality of real-time remote biometric identification systems used by law enforcement.",
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer') && q_le_biometric_id_conditions_met === 'Yes'"
+        },
+        {
+          "id": "q_le_biometric_id_registration_eu_db",
+          "type": "radio",
+          "text": "Has the system been registered in the EU database according to Article 49 (Article 5(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_le_biometric_id_registration_urgency_completed",
+          "type": "radio",
+          "text": "If used in urgent cases without prior registration, has the registration been completed without undue delay (Article 5(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer') && q_le_biometric_id_registration_eu_db === 'No'"
+        },
+        {
+          "id": "q_le_biometric_id_no_sole_decision_on_output",
+          "type": "radio",
+          "text": "As a deployer, do you ensure that no decision that produces an adverse legal effect on a person is taken based solely on the output of this 'real-time' remote biometric identification system (Article 5(3))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer')",
+          "tooltip": "This question addresses the fundamental rights safeguard that human intervention is required for decisions with adverse legal effects, preventing reliance solely on AI system outputs."
+        },
+        {
+          "id": "q_le_biometric_id_prior_authorization",
+          "type": "radio",
+          "text": "For this specific use of the 'real-time' remote biometric identification system, what was the outcome of the authorization process as required by Article 5(3)?",
+          "required": true,
+          "options": [
+            "Authorization was granted by a judicial or independent administrative authority.",
+            "Authorization was requested and rejected by a judicial or independent administrative authority.",
+            "Use commenced in an urgent situation, and authorization was subsequently requested without undue delay (within 24 hours)."
+          ],
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_le_biometric_id_authorization_urgency_requested",
+          "type": "radio",
+          "text": "If use commenced in an urgent situation, what was the outcome of the authorization request made without undue delay (within 24 hours) as required by Article 5(3)?",
+          "required": true,
+          "options": [
+            "Authorization was requested and granted.",
+            "Authorization was requested and rejected.",
+            "Authorization was not requested without undue delay (within 24 hours)."
+          ],
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer') && q_le_biometric_id_prior_authorization === 'Use commenced in an urgent situation, and authorization was subsequently requested without undue delay (within 24 hours).'"
+        },
+        {
+          "id": "q_le_biometric_id_auth_rejected_data_deleted",
+          "type": "radio",
+          "text": "If an authorization for the use of this 'real-time' remote biometric identification system is rejected by the judicial or independent administrative authority, do you ensure that its use is stopped immediately and all associated data, results, and outputs are discarded and deleted without delay (Article 5(3))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer') && (q_le_biometric_id_prior_authorization === 'Authorization was requested and rejected by a judicial or independent administrative authority.' || q_le_biometric_id_authorization_urgency_requested === 'Authorization was requested and rejected.')",
+          "tooltip": "This question addresses the mandatory legal obligation for deployers to immediately cease use and delete data if authorization for a real-time remote biometric identification system is rejected."
+        },
+        {
+          "id": "q_le_biometric_id_notification_authorities",
+          "type": "radio",
+          "text": "Has each use of the system been notified to the relevant market surveillance authority and national data protection authority (Article 5(4))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_le_biometric_id_national_rules_laid_down",
+          "type": "radio",
+          "text": "Do you ensure that you comply with all applicable national detailed rules laid down by your Member State for the request, issuance, exercise, supervision, and reporting of authorisations for this system (Article 5(5))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes'",
+          "tooltip": "This question assesses the deployer's compliance with their Member State's specific national rules, which must be in place for the use of real-time remote biometric identification systems as per Article 5(5)."
+        },
+        {
+          "id": "q_le_biometric_id_notification_content",
+          "type": "radio",
+          "text": "Does the notification for each use of this system include all necessary information regarding the authorization request (e.g., purpose, scope, authority granting/rejecting authorization, and the outcome of the request) to enable the relevant authorities to fulfill their reporting obligations as described in Article 5(6)?",
+          "required": true,
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_le_biometric_id_notification_authorities === 'Yes'",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "tooltip": "Article 5(4) requires notifications to authorities to contain, as a minimum, information that enables those authorities to compile their annual reports to the Commission, as described in Article 5(6). This includes specific details of each authorization request and its outcome."
+        },
+        {
+          "id": "q_le_biometric_id_notification_national_content",
+          "type": "radio",
+          "text": "Does the notification for each use of this system comply with the content requirements specified in the national rules referred to in Article 5(5)?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_realtime_remote_biometric_id === 'Yes' && q_le_biometric_id_notification_authorities === 'Yes'",
+          "tooltip": "Article 5(4) specifies that each notification of use must be in accordance with national rules, which include content requirements for such notifications."
+        }
+      ]
+    },
+    {
+      "id": "tab_biometric_id_post_le",
+      "title": "Special Case - Post-Remote Biometric ID (Law Enforcement)",
+      "layout": [
+        "lbl_biometric_id_post_le_intro",
+        "q_le_post_biometric_id_authorization_requested",
+        "q_le_post_biometric_id_authorization_rejected_data_deleted",
+        "q_le_post_biometric_id_use_limitations",
+        "q_le_post_biometric_id_no_sole_decision_on_output",
+        "q_le_post_biometric_id_documentation",
+        "q_le_post_biometric_id_annual_reports"
+      ],
+      "questions": [
+        {
+          "id": "lbl_biometric_id_post_le_intro",
+          "type": "label",
+          "text": "This section covers specific obligations for post-remote biometric identification systems used for law enforcement purposes (Article 26(10)).",
+          "dependsOnExpression": "q_is_post_remote_biometric_id === 'Yes'"
+        },
+        {
+          "id": "q_le_post_biometric_id_authorization_requested",
+          "type": "radio",
+          "text": "For targeted searches of a person suspected or convicted of a criminal offence, has an authorization for the use of the system been requested ex ante, or without undue delay and no later than 48 hours, by a judicial or administrative authority (Article 26(10))?",
+          "required": true,
+          "options": [
+            "Yes, authorization was granted",
+            "Yes, authorization was rejected",
+            "No, authorization was not requested (e.g., initial identification, or system not yet used)"
+          ],
+          "tooltip": "This excludes initial identification of a potential suspect based on objective and verifiable facts directly linked to the offence.",
+          "dependsOnExpression": "q_is_post_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_le_post_biometric_id_authorization_rejected_data_deleted",
+          "type": "radio",
+          "text": "If an authorization request was rejected, was the use stopped immediately and relevant personal data deleted (Article 26(10))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_post_remote_biometric_id === 'Yes' && q_le_post_biometric_id_authorization_requested === 'Yes, authorization was rejected'"
+        },
+        {
+          "id": "q_le_post_biometric_id_use_limitations",
+          "type": "radio",
+          "text": "Is each use of the post-remote biometric identification system strictly limited to what is necessary for the investigation of a specific criminal offence, and is it *never* used in an untargeted way (i.e., without a direct link to a criminal offence, proceeding, genuine threat, or specific missing person) (Article 26(10))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_post_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_le_post_biometric_id_no_sole_decision_on_output",
+          "type": "radio",
+          "text": "Are decisions that produce an adverse legal effect on a person *never* taken by law enforcement authorities based *solely* on the output of this post-remote biometric identification system? (Article 26(10))",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_post_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_le_post_biometric_id_documentation",
+          "type": "radio",
+          "text": "Is each use of such high-risk AI systems documented in the relevant police file and made available to the relevant market surveillance authority and national data protection authority upon request (excluding sensitive operational data) (Article 26(10))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_post_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_le_post_biometric_id_annual_reports",
+          "type": "radio",
+          "text": "Do you submit annual reports to the relevant market surveillance and national data protection authorities on your use of post-remote biometric identification systems (excluding sensitive operational data) (Article 26(10))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_post_remote_biometric_id === 'Yes' && q_party_role.includes('Deployer')"
+        }
+      ]
+    },
+    {
+      "id": "tab_transparency_obligations",
+      "title": "Transparency Obligations (Certain AI Systems)",
+      "layout": [
+        "lbl_transparency_obligations_intro",
+        "q_ai_system_interacts_humans",
+        "q_ai_system_informs_interaction",
+        "q_ai_system_generates_synthetic_content",
+        "q_ai_system_synthetic_content_marked",
+        "q_ai_system_deep_fake_disclosure",
+        "q_ai_system_text_public_interest_disclosure",
+        "q_ai_system_emotion_biometric_categorisation",
+        "q_ai_system_emotion_biometric_info_processed",
+        "q_ai_system_transparency_timing"
+      ],
+      "questions": [
+        {
+          "id": "lbl_transparency_obligations_intro",
+          "type": "label",
+          "text": "This section covers transparency obligations for providers and deployers of certain AI systems (Article 50)."
+        },
+        {
+          "id": "q_ai_system_interacts_humans",
+          "type": "radio",
+          "text": "Is this an AI system intended to interact directly with natural persons (Article 50(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "id": "q_ai_system_informs_interaction",
+          "type": "radio",
+          "text": "If it interacts with humans, are natural persons informed that they are interacting with an AI system, unless this is obvious (Article 50(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_ai_system_interacts_humans === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_ai_system_generates_synthetic_content",
+          "type": "radio",
+          "text": "Is this an AI system (including a general-purpose AI system) that generates synthetic audio, image, video, or text content (Article 50(2,4))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "id": "q_ai_system_synthetic_content_marked",
+          "type": "radio",
+          "text": "If it generates synthetic content, are the outputs marked in a machine-readable format and detectable as artificially generated or manipulated (Article 50(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_ai_system_generates_synthetic_content === 'Yes' && q_party_role.includes('Provider')"
+        },
+        {
+          "id": "q_ai_system_deep_fake_disclosure",
+          "type": "radio",
+          "text": "If the AI system generates or manipulates image, audio, or video content constituting a 'deep fake' (Article 3(60)), is it disclosed that the content has been artificially generated or manipulated (Article 50(4))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_ai_system_generates_synthetic_content === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_ai_system_text_public_interest_disclosure",
+          "type": "radio",
+          "text": "If the AI system generates or manipulates text published to inform the public on matters of public interest, is it disclosed that the text has been artificially generated or manipulated (Article 50(4))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_ai_system_generates_synthetic_content === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_ai_system_emotion_biometric_categorisation",
+          "type": "radio",
+          "text": "Is this an emotion recognition system or a biometric categorisation system (Article 50(3))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ]
+        },
+        {
+          "id": "q_ai_system_emotion_biometric_info_processed",
+          "type": "radio",
+          "text": "If it is an emotion recognition or biometric categorisation system, are natural persons informed of its operation, and is personal data processed in accordance with relevant data protection regulations (Article 50(3))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_ai_system_emotion_biometric_categorisation === 'Yes' && q_party_role.includes('Deployer')"
+        },
+        {
+          "id": "q_ai_system_transparency_timing",
+          "type": "radio",
+          "text": "Is the required information provided to natural persons in a clear and distinguishable manner at the latest at the time of first interaction or exposure, and does it conform to accessibility requirements (Article 50(5))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "(q_ai_system_interacts_humans === 'Yes' && q_ai_system_informs_interaction === 'Yes') || (q_ai_system_generates_synthetic_content === 'Yes' && (q_ai_system_synthetic_content_marked === 'Yes' || q_ai_system_deep_fake_disclosure === 'Yes' || q_ai_system_text_public_interest_disclosure === 'Yes')) || (q_ai_system_emotion_biometric_categorisation === 'Yes' && q_ai_system_emotion_biometric_info_processed === 'Yes')"
+        }
+      ]
+    },
+    {
+      "id": "tab_gpai_models",
+      "title": "General-Purpose AI Models (GPAI)",
+      "layout": [
+        "lbl_gpai_models_intro",
+        "q_gpai_systemic_risk_notified",
+        "q_gpai_systemic_risk_exemption_argued",
+        "q_gpai_tech_docs_kept",
+        "q_gpai_tech_docs_content_general",
+        "q_gpai_tech_docs_content_development",
+        "q_gpai_info_downstream_providers",
+        "q_gpai_info_downstream_content",
+        "q_gpai_copyright_policy",
+        "q_gpai_training_summary_public",
+        "q_gpai_authorized_representative_appointed",
+        "q_gpai_ar_verifies_obligations",
+        "q_gpai_systemic_risk_eval_performed",
+        "q_gpai_systemic_risk_eval_documented",
+        "q_gpai_systemic_risk_mitigation",
+        "q_gpai_systemic_risk_incident_reporting",
+        "q_gpai_systemic_risk_cybersecurity"
+      ],
+      "questions": [
+        {
+          "id": "lbl_gpai_models_intro",
+          "type": "label",
+          "text": "This section covers specific obligations for providers of General-Purpose AI (GPAI) models (Articles 52, 53, 54, 55).",
+          "dependsOnExpression": "q_is_gpai_model === 'Yes'"
+        },
+        {
+          "id": "q_gpai_systemic_risk_notified",
+          "type": "radio",
+          "text": "Does this GPAI model meet the conditions for systemic risk (e.g., reaching high impact capabilities as defined in Article 51(1)(a)), and if so, has the Commission been notified without delay (Article 52(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_gpai_model === 'Yes'"
+        },
+        {
+          "id": "q_gpai_systemic_risk_exemption_argued",
+          "type": "radio",
+          "text": "If it meets systemic risk conditions but you argue it does not present systemic risks due to specific characteristics, have you presented sufficiently substantiated arguments with the notification (Article 52(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_gpai_model === 'Yes' && q_gpai_systemic_risk_notified === 'Yes'"
+        },
+        {
+          "id": "q_gpai_tech_docs_kept",
+          "type": "radio",
+          "text": "Have you drawn up and do you keep up-to-date the technical documentation of the GPAI model, including its training and testing process and evaluation results, containing at least information from Annex XI (Article 53(1a))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_gpai_model === 'Yes'"
+        },
+        {
+          "id": "q_gpai_tech_docs_content_general",
+          "type": "checkbox",
+          "text": "Does the technical documentation contain the following general information (Annex XI, Section 1)? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_gpai_model === 'Yes' && q_gpai_tech_docs_kept === 'Yes'",
+          "options": [
+            "Tasks the model is intended to perform and types of AI systems it can be integrated into.",
+            "Acceptable use policies.",
+            "Date of release and methods of distribution.",
+            "Architecture and number of parameters.",
+            "Modality (e.g., text, image) and format of inputs/outputs.",
+            "Licence."
+          ]
+        },
+        {
+          "id": "q_gpai_tech_docs_content_development",
+          "type": "checkbox",
+          "text": "Does the technical documentation contain detailed description of development process elements (Annex XI, Section 1)? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_gpai_model === 'Yes' && q_gpai_tech_docs_kept === 'Yes'",
+          "options": [
+            "Technical means required for integration into AI systems.",
+            "Design specifications and training process (methodologies, techniques, key choices, rationale, assumptions, optimization, parameter relevance).",
+            "Information on data used for training, testing, validation (type, provenance, curation, data points, scope, characteristics, obtaining/selection methods, bias detection measures).",
+            "Computational resources used to train the model, training time, and other relevant details.",
+            "Known or estimated energy consumption."
+          ]
+        },
+        {
+          "id": "q_gpai_info_downstream_providers",
+          "type": "radio",
+          "text": "Do you draw up, keep up-to-date, and make available information and documentation to providers of AI systems who intend to integrate the GPAI model into their AI systems (Article 53(1b))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "tooltip": "This information must enable downstream providers to understand capabilities/limitations and comply with their obligations, without prejudice to IP rights/trade secrets.",
+          "dependsOnExpression": "q_is_gpai_model === 'Yes'"
+        },
+        {
+          "id": "q_gpai_info_downstream_content",
+          "type": "checkbox",
+          "text": "Does the information for downstream providers contain at least the elements set out in Annex XII? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_gpai_model === 'Yes' && q_gpai_info_downstream_providers === 'Yes'",
+          "options": [
+            "General description of the GPAI model (tasks, AI systems for integration, acceptable use policies, release date/distribution, interaction with hardware/software, software versions, architecture, parameters, modality/format of inputs/outputs, licence).",
+            "Description of model elements and development process (technical means for integration, modality/format/max size of inputs/outputs, info on data used for training/testing/validation)."
+          ]
+        },
+        {
+          "id": "q_gpai_copyright_policy",
+          "type": "radio",
+          "text": "Have you put in place a policy to comply with Union law on copyright and related rights, particularly regarding reservation of rights (Article 53(1c))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_gpai_model === 'Yes'"
+        },
+        {
+          "id": "q_gpai_training_summary_public",
+          "type": "radio",
+          "text": "Have you drawn up and made publicly available a sufficiently detailed summary about the content used for training the GPAI model, according to a template provided by the AI Office (Article 53(1d))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_gpai_model === 'Yes'"
+        },
+        {
+          "id": "q_gpai_authorized_representative_appointed",
+          "type": "radio",
+          "text": "If established in a third country, have you appointed an authorized representative established in the Union (Article 54(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_gpai_model === 'Yes' && q_party_role.includes('Provider') && !q_party_role.includes('Authorized Representative') && q_provider_country_of_establishment === 'Third Country'"
+        },
+        {
+          "id": "q_gpai_ar_verifies_obligations",
+          "type": "radio",
+          "text": "If an authorized representative has been appointed, does the authorized representative verify that the technical documentation (Annex XI) has been drawn up and that all obligations under Article 53 (and Article 55, if applicable) have been fulfilled by the provider (Article 54(3a))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_gpai_model === 'Yes' && q_gpai_authorized_representative_appointed === 'Yes'"
+        },
+        {
+          "id": "q_gpai_systemic_risk_eval_performed",
+          "type": "radio",
+          "text": "If this is a GPAI model with systemic risk, have you performed model evaluation in accordance with standardised protocols and tools, including adversarial testing (Article 55(1a))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_gpai_model === 'Yes' && q_gpai_systemic_risk_notified === 'Yes'"
+        },
+        {
+          "id": "q_gpai_systemic_risk_eval_documented",
+          "type": "checkbox",
+          "text": "Does the technical documentation for GPAI with systemic risk include (Annex XI, Section 2)? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_is_gpai_model === 'Yes' && q_gpai_systemic_risk_notified === 'Yes' && q_gpai_tech_docs_kept === 'Yes' && q_gpai_systemic_risk_eval_performed === 'Yes'",
+          "options": [
+            "Detailed description of evaluation strategies, including results, criteria, metrics, methodology for identifying limitations.",
+            "Detailed description of measures for internal/external adversarial testing, model adaptations (e.g., alignment, fine-tuning).",
+            "Detailed description of system architecture."
+          ]
+        },
+        {
+          "id": "q_gpai_systemic_risk_mitigation",
+          "type": "radio",
+          "text": "If this is a GPAI model with systemic risk, do you assess and mitigate possible systemic risks at Union level (Article 55(1b))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_gpai_model === 'Yes' && q_gpai_systemic_risk_notified === 'Yes'"
+        },
+        {
+          "id": "q_gpai_systemic_risk_incident_reporting",
+          "type": "radio",
+          "text": "If this is a GPAI model with systemic risk, do you track, document, and report, without undue delay, relevant information about serious incidents and corrective measures to the AI Office and national competent authorities (Article 55(1c))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_gpai_model === 'Yes' && q_gpai_systemic_risk_notified === 'Yes'"
+        },
+        {
+          "id": "q_gpai_systemic_risk_cybersecurity",
+          "type": "radio",
+          "text": "If this is a GPAI model with systemic risk, do you ensure an adequate level of cybersecurity protection for the model and its physical infrastructure (Article 55(1d))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_is_gpai_model === 'Yes' && q_gpai_systemic_risk_notified === 'Yes'"
+        }
+      ]
+    },
+    {
+      "id": "tab_innovation_testing",
+      "title": "Innovation & Testing (Sandboxes/Real-World)",
+      "layout": [
+        "lbl_innovation_testing_intro",
+        "q_testing_type",
+        "q_sandbox_plan_agreed",
+        "q_sandbox_guidance_received",
+        "q_sandbox_proof_exit_report",
+        "q_sandbox_personal_data_processed",
+        "q_sandbox_personal_data_documentation",
+        "q_sandbox_project_summary_published",
+        "q_real_world_testing_plan_content",
+        "q_real_world_testing_plan_submitted_details",
+        "q_real_world_testing_registration_details",
+        "q_real_world_testing_data_transfer_safeguards",
+        "q_real_world_testing_deployer_agreement",
+        "q_real_world_testing_informed_consent",
+        "q_real_world_testing_informed_consent_exception",
+        "q_real_world_testing_consent_info_content",
+        "q_real_world_testing_consent_documented",
+        "q_real_world_testing_output_reversibility",
+        "q_real_world_testing_serious_incident_reported",
+        "q_real_world_testing_notification_termination_outcomes"
+      ],
+      "questions": [
+        {
+          "id": "lbl_innovation_testing_intro",
+          "type": "label",
+          "text": "This section covers specific requirements for AI systems undergoing testing in AI regulatory sandboxes or in real-world conditions outside sandboxes (Articles 57, 59, 60, 61).",
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes'"
+        },
+        {
+          "id": "q_testing_type",
+          "type": "radio",
+          "text": "Is the AI system being tested in (Article 57(5), 60(1))?",
+          "required": true,
+          "options": [
+            "AI regulatory sandbox",
+            "Real-world conditions outside a sandbox"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes'"
+        },
+        {
+          "id": "q_sandbox_plan_agreed",
+          "type": "textarea",
+          "text": "Describe the specific sandbox plan agreed between you (provider/prospective provider) and the competent authority (Article 57(5)). Include its objectives, conditions, timeframe, methodology, and requirements for activities within the sandbox, as defined in Article 3(54).",
+          "required": true,
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'AI regulatory sandbox'"
+        },
+        {
+          "id": "q_sandbox_guidance_received",
+          "type": "radio",
+          "text": "If in a sandbox, have competent authorities provided guidance on regulatory expectations and how to fulfill requirements (Article 57(7))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'AI regulatory sandbox'"
+        },
+        {
+          "id": "q_sandbox_proof_exit_report",
+          "type": "radio",
+          "text": "If in a sandbox, have you received written proof of successfully carried out activities or an exit report (Article 57(7))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'AI regulatory sandbox'"
+        },
+        {
+          "id": "q_sandbox_personal_data_processed",
+          "type": "radio",
+          "text": "If in a sandbox, is personal data lawfully collected for other purposes being processed solely for developing, training, and testing the AI system (Article 59(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'AI regulatory sandbox'"
+        },
+        {
+          "id": "q_sandbox_personal_data_documentation",
+          "type": "textarea",
+          "text": "Describe the complete and detailed documentation of the process, rationale, and testing results for processing personal data in the sandbox, as part of the technical documentation (Article 59(1i)).",
+          "required": true,
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_sandbox_personal_data_processed === 'Yes'"
+        },
+        {
+          "id": "q_sandbox_project_summary_published",
+          "type": "radio",
+          "text": "If in a sandbox, is a short summary of the AI project, its objectives, and expected results published on the competent authorities' website (excluding sensitive operational data) (Article 59(1j))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'AI regulatory sandbox'"
+        },
+        {
+          "id": "q_real_world_testing_plan_content",
+          "type": "textarea",
+          "text": "Describe the objectives, methodology, geographical/population/temporal scope, monitoring, organisation, and conduct of testing in real-world conditions (Article 3(53)):",
+          "required": true,
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'Real-world conditions outside a sandbox'",
+          "placeholder": "e.g., 'Pilot program to test AI diagnostic tool in a specific hospital department over 6 months, monitoring false positives/negatives, under strict medical supervision.'"
+        },
+        {
+          "id": "q_real_world_testing_plan_submitted_details",
+          "type": "textarea",
+          "text": "Describe how and when the real-world testing plan has been submitted to the market surveillance authority in the Member State where the testing is to be conducted, including any relevant submission IDs or dates (Article 60(4a)).",
+          "required": true,
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'Real-world conditions outside a sandbox'"
+        },
+        {
+          "id": "q_real_world_testing_registration_details",
+          "type": "textarea",
+          "text": "Confirm the registration of the real-world testing in the EU database, providing the Union-wide unique single identification number and the specific information provided as per Annex IX (Article 60(4c)). If applicable for law enforcement, migration, asylum, and border control management, confirm registration in the secure non-public section of the EU database as per Article 49(4)(d).",
+          "required": true,
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'Real-world conditions outside a sandbox'"
+        },
+        {
+          "id": "q_real_world_testing_data_transfer_safeguards",
+          "type": "textarea",
+          "text": "Describe the appropriate and applicable safeguards under Union law implemented for data transferred to third countries during real-world testing (Article 60(4e)).",
+          "required": true,
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'Real-world conditions outside a sandbox'"
+        },
+        {
+          "id": "q_real_world_testing_deployer_agreement",
+          "type": "radio",
+          "text": "If real-world testing is in cooperation with deployers, have they been informed of all relevant aspects and given instructions for use, and is there an agreement specifying roles and responsibilities (Article 60(4h))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'Real-world conditions outside a sandbox'"
+        },
+        {
+          "id": "q_real_world_testing_informed_consent",
+          "type": "radio",
+          "text": "Have the subjects of real-world testing given informed consent (Article 60(4i))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'Real-world conditions outside a sandbox'"
+        },
+        {
+          "id": "q_real_world_testing_informed_consent_exception",
+          "type": "radio",
+          "text": "If informed consent was not sought due to law enforcement purposes, does the testing and its outcome have no negative effect on subjects, and is personal data deleted after testing (Article 60(4i))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_real_world_testing_informed_consent === 'No'"
+        },
+        {
+          "id": "q_real_world_testing_consent_info_content",
+          "type": "checkbox",
+          "text": "If informed consent was obtained, did the information provided include (Article 61(1))? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_real_world_testing_informed_consent === 'Yes'",
+          "options": [
+            "Nature and objectives of testing and possible inconvenience.",
+            "Conditions of testing, including expected duration of participation.",
+            "Rights of subjects, including right to refuse/withdraw without detriment.",
+            "Arrangements for requesting reversal/disregarding of predictions, recommendations, or decisions.",
+            "Union-wide unique single identification number of testing and contact details of provider/legal representative."
+          ]
+        },
+        {
+          "id": "q_real_world_testing_consent_documented",
+          "type": "radio",
+          "text": "Is the informed consent dated and documented, with a copy given to the subjects or their legal representative (Article 61(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_real_world_testing_informed_consent === 'Yes'"
+        },
+        {
+          "id": "q_real_world_testing_output_reversibility",
+          "type": "radio",
+          "text": "Are the predictions, recommendations, or decisions of the AI system being tested effectively reversible and disregardable (Article 60(4k))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'Real-world conditions outside a sandbox'"
+        },
+        {
+          "id": "q_real_world_testing_serious_incident_reported",
+          "type": "radio",
+          "text": "Have any serious incidents identified during real-world testing been reported to the national market surveillance authority (Article 60(7))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'Real-world conditions outside a sandbox'"
+        },
+        {
+          "id": "q_real_world_testing_notification_termination_outcomes",
+          "type": "radio",
+          "text": "Have you notified the national market surveillance authority of the suspension or termination of testing and its final outcomes (Article 60(8))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_in_sandbox_or_real_world_testing === 'Yes' && q_testing_type === 'Real-world conditions outside a sandbox'"
+        }
+      ]
+    },
+    {
+      "id": "tab_registration",
+      "title": "Registration",
+      "layout": [
+        "lbl_registration_intro",
+        "q_registration_trigger_provider_high_risk",
+        "q_registration_info_provider_high_risk",
+        "q_registration_trigger_provider_non_high_risk",
+        "q_registration_info_provider_non_high_risk",
+        "q_registration_trigger_deployer_public",
+        "q_registration_info_deployer_public",
+        "q_registration_trigger_real_world_testing",
+        "q_registration_info_real_world_testing",
+        "q_registration_law_enforcement_migration_special_section",
+        "q_registration_trigger_rwt_le_migration",
+        "q_registration_trigger_rwt_annex_iii_2",
+        "q_registration_personal_data_necessary",
+        "q_registration_info_rwt_le_migration"
+      ],
+      "questions": [
+        {
+          "id": "lbl_registration_intro",
+          "type": "label",
+          "text": "This section covers obligations for registration in the EU database for high-risk AI systems, certain non-high-risk systems, and real-world testing (Articles 49, 71, Annex VIII, Annex IX)."
+        },
+        {
+          "id": "q_registration_trigger_provider_high_risk",
+          "type": "radio",
+          "text": "As a provider or authorized representative for this high-risk AI system (excluding Annex III point 2) being placed on the market or put into service, have you completed its registration in the EU database as required by Article 49(1))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "(q_party_role.includes('Provider') || q_party_role.includes('Authorized Representative')) && q_is_ai_system_high_risk === 'Yes' && !q_annex_iii_high_risk_categories.includes('Annex III, Point 2')"
+        },
+        {
+          "id": "q_registration_info_provider_high_risk",
+          "type": "checkbox",
+          "text": "For high-risk AI systems registered by providers, which of the following information has been provided and kept up-to-date (Annex VIII, Section A)? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_registration_trigger_provider_high_risk === 'Yes'",
+          "options": [
+            "Name, address, and contact details of the provider.",
+            "Name, address, and contact details of the person submitting information (if different).",
+            "Name, address, and contact details of the authorised representative (if applicable).",
+            "AI system trade name and unambiguous reference.",
+            "Description of intended purpose and supported components/functions.",
+            "Basic and concise description of information used by the system (data, inputs) and operating logic.",
+            "Status of the AI system (on market, in service, recalled, etc.).",
+            "Type, number, expiry date of notified body certificate, and notified body ID (if applicable).",
+            "Scanned copy of the certificate (if applicable).",
+            "Any Member States where the system is placed on the market or made available.",
+            "Copy of the EU declaration of conformity (Article 47).",
+            "Electronic instructions for use (unless for specific law enforcement/migration systems).",
+            "URL for additional information (optional)."
+          ]
+        },
+        {
+          "id": "q_registration_trigger_provider_non_high_risk",
+          "type": "radio",
+          "text": "As a provider or authorized representative for this AI system (classified as non-high-risk per Article 6(3)), have you completed its registration in the EU database as required by Article 49(2))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "(q_party_role.includes('Provider') || q_party_role.includes('Authorized Representative')) && q_is_ai_system_annex_iii_listed === 'Yes' && q_is_ai_system_high_risk === 'No'"
+        },
+        {
+          "id": "q_registration_info_provider_non_high_risk",
+          "type": "checkbox",
+          "text": "For non-high-risk AI systems registered by providers, which of the following information has been provided and kept up-to-date (Annex VIII, Section B)? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_registration_trigger_provider_non_high_risk === 'Yes'",
+          "options": [
+            "Name, address, and contact details of the provider.",
+            "Name, address, and contact details of the person submitting information (if different).",
+            "Name, address, and contact details of the authorised representative (if applicable).",
+            "AI system trade name and unambiguous reference.",
+            "Description of the intended purpose.",
+            "Condition(s) under Article 6(3) for non-high-risk classification.",
+            "Short summary of grounds for non-high-risk classification.",
+            "Status of the AI system (on market, in service, recalled, etc.).",
+            "Any Member States where the system is placed on the market or made available."
+          ]
+        },
+        {
+          "id": "q_registration_trigger_deployer_public",
+          "type": "radio",
+          "text": "As a deployer that is a public authority, Union institution, body, office, or agency, for this high-risk AI system (excluding Annex III point 2) being put into service or used, have you completed its registration in the EU database as required by Article 49(3))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_party_role.includes('Deployer') && q_deployer_is_public_authority === 'Yes' && q_is_ai_system_high_risk === 'Yes' && !q_annex_iii_high_risk_categories.includes('Annex III, Point 2')"
+        },
+        {
+          "id": "q_registration_info_deployer_public",
+          "type": "checkbox",
+          "text": "For high-risk AI systems registered by public deployers, which of the following information has been provided and kept up-to-date (Annex VIII, Section C)? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_registration_trigger_deployer_public === 'Yes'",
+          "options": [
+            "Name, address, and contact details of the deployer.",
+            "Name, address, and contact details of the person submitting information (if different).",
+            "URL of the AI system entry in the EU database by its provider.",
+            "Summary of FRIA findings (Article 27).",
+            "Summary of DPIA findings (Article 26(9))."
+          ]
+        },
+        {
+          "id": "q_registration_trigger_real_world_testing",
+          "type": "radio",
+          "text": "For this real-world testing (excluding specific law enforcement/migration systems), have you completed its registration in the EU database as required by Article 60(4c))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_testing_type === 'Real-world conditions outside a sandbox' && !(q_is_ai_system_high_risk === 'Yes' && (q_annex_iii_high_risk_categories.includes('Annex III, Point 1') || q_annex_iii_high_risk_categories.includes('Annex III, Point 6') || q_annex_iii_high_risk_categories.includes('Annex III, Point 7') || q_annex_iii_high_risk_categories.includes('Annex III, Point 2')))"
+        },
+        {
+          "id": "q_registration_info_real_world_testing",
+          "type": "checkbox",
+          "text": "For real-world testing registered, which of the following information has been provided and kept up-to-date (Annex IX)? Select all that apply:",
+          "required": true,
+          "dependsOnExpression": "q_registration_trigger_real_world_testing === 'Yes'",
+          "options": [
+            "Union-wide unique single identification number of the testing.",
+            "Name and contact details of the provider/prospective provider and deployers involved.",
+            "Brief description of the AI system, its intended purpose, and other identification info.",
+            "Summary of main characteristics of the real-world testing plan.",
+            "Information on suspension or termination of testing."
+          ]
+        },
+        {
+          "id": "q_registration_law_enforcement_migration_special_section",
+          "type": "label",
+          "text": "For high-risk AI systems in law enforcement, migration, asylum, or border control (Annex III, points 1, 6, 7), registration **must** be completed in the secure non-public section of the EU database, providing specific information as per Article 49(4).",
+          "dependsOnExpression": "q_testing_type === 'Real-world conditions outside a sandbox' && q_is_ai_system_high_risk === 'Yes' && (q_annex_iii_high_risk_categories.includes('Annex III, Point 1') || q_annex_iii_high_risk_categories.includes('Annex III, Point 6') || q_annex_iii_high_risk_categories.includes('Annex III, Point 7'))"
+        },
+        {
+          "id": "q_registration_trigger_rwt_le_migration",
+          "type": "radio",
+          "text": "For real-world testing of this high-risk AI system in law enforcement, migration, asylum, or border control management, have you completed its registration in the secure non-public section of the EU database as required by Article 60(4c) and Article 49(4)(d)?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_testing_type === 'Real-world conditions outside a sandbox' && q_is_ai_system_high_risk === 'Yes' && (q_annex_iii_high_risk_categories.includes('Annex III, Point 1') || q_annex_iii_high_risk_categories.includes('Annex III, Point 6') || q_annex_iii_high_risk_categories.includes('Annex III, Point 7'))"
+        },
+        {
+          "id": "q_registration_trigger_rwt_annex_iii_2",
+          "type": "radio",
+          "text": "For real-world testing of this high-risk AI system listed in Annex III, Point 2, have you completed its registration in the EU database as required by Article 60(4c) and Article 49(5)?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_testing_type === 'Real-world conditions outside a sandbox' && q_is_ai_system_high_risk === 'Yes' && q_annex_iii_high_risk_categories.includes('Annex III, Point 2')"
+        },
+        {
+          "id": "q_registration_personal_data_necessary",
+          "type": "radio",
+          "text": "Does the EU database contain personal data only insofar as necessary for collecting and processing information in accordance with this Regulation, including names and contact details of natural persons responsible for registering (Article 71(5))?",
+          "required": true,
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "dependsOnExpression": "q_registration_trigger_provider_high_risk === 'Yes' || q_registration_trigger_provider_non_high_risk === 'Yes' || q_registration_trigger_deployer_public === 'Yes' || q_registration_trigger_real_world_testing === 'Yes' || q_registration_trigger_rwt_le_migration === 'Yes' || q_registration_trigger_rwt_annex_iii_2 === 'Yes'"
+        },
+        {
+          "id": "q_registration_info_rwt_le_migration",
+          "type": "checkbox",
+          "text": "For real-world testing of high-risk AI systems in law enforcement, migration, asylum, or border control management, which of the following information has been provided and kept up-to-date in the secure non-public section of the EU database (Article 49(4))? Select all that apply:",
+          "required": true,
+          "options": [
+            "Provider's name, address, and contact details (Annex VIII, A.1, B.1)",
+            "Name, address, and contact details of the person submitting information on behalf of the provider (if applicable) (Annex VIII, A.2, B.2)",
+            "Name, address, and contact details of the authorized representative (if applicable) (Annex VIII, A.3, B.3)",
+            "AI system trade name and unambiguous reference (Annex VIII, A.4, B.4)",
+            "Description of the AI system's intended purpose (Annex VIII, A.5, B.5)",
+            "AI system's status (on market, in service, recalled, etc.) (Annex VIII, A.7, B.8)",
+            "Any Member States where the AI system is placed on the market or made available (Annex VIII, A.10, B.9)",
+            "Deployer's name, address, and contact details (Annex VIII, C.1)",
+            "Name, address, and contact details of the person submitting information on behalf of the deployer (if applicable) (Annex VIII, C.2)",
+            "URL of the AI system entry in the EU database by its provider (Annex VIII, C.3)",
+            "Union-wide unique single identification number of the testing (Annex IX, 1)",
+            "Name and contact details of the provider/prospective provider and deployers involved in the testing (Annex IX, 2)",
+            "Brief description of the AI system, its intended purpose, and other identification information relevant to testing (Annex IX, 3)",
+            "Information on suspension or termination of testing (Annex IX, 5)"
+          ],
+          "dependsOnExpression": "q_registration_trigger_rwt_le_migration === 'Yes'"
+        }
+      ]
+    }
+  ],
+  "celex_id": "CELEX:32024R1689"
+}

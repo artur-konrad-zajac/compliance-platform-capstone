@@ -1,0 +1,45 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Project Description</title><style>
+body { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
+h1, h2, h3 { color: #111; margin-top: 1.5em; }
+h1 { border-bottom: 1px solid #eaecef; padding-bottom: .3em; }
+pre { padding: 16px; overflow-y: auto; overflow-x: auto; max-height: 400px; background-color: #f6f8fa; border-radius: 3px; }
+code { background-color: rgba(27,31,35,.05); padding: .2em .4em; border-radius: 3px; font-family: monospace; }
+</style></head><body><h1>Agentic Compliance Sandbox: Exploring Regulatory Evaluation with Autonomous AI</h1>
+<h2>1. Executive Summary &amp; Vision</h2>
+<p>Navigating modern regulatory frameworks—such as the EU AI Act or GDPR—is a complex bottleneck for modern enterprises. Legal texts are dense, evolving, and difficult to translate into actionable engineering or business requirements. To explore how AI can help, I built the <strong>Agentic Compliance Sandbox</strong>, an experimental, fully interactive platform that leverages autonomous AI agents to assist with regulatory compliance. Rather than a production-ready product, this is a proof-of-concept learning environment. It demonstrates how transitioning from static forms to dynamic, AI-driven workflows might reduce the friction associated with regulatory submissions, proving that autonomous AI can act as both a helpful guide for applicants and a rigorous assistant for regulatory bodies.</p>
+<h2>2. The Problem Landscape</h2>
+<p>The current state of regulatory compliance faces two major challenges:</p>
+<ul>
+<li><strong>For Applicants (Companies):</strong> Translating a 600-kilobyte legislative document like the EU AI Act into internal compliance tasks is daunting. When filling out compliance applications, companies often face ambiguous questions without direct access to legal counsel, leading to guesswork.</li>
+<li><strong>For Regulators:</strong> Regulatory bodies must manually read massive volumes of applicant answers and mentally map them against complex, interconnected legal articles. This manual pipeline is slow and highly tedious.</li>
+</ul>
+<h2>3. My Experimental Solution</h2>
+<p>I built an interactive, dual-role compliance environment that explores solutions for both sides using Agentic Workflows. This sandbox is a full-stack web application (React frontend, FastAPI/Python backend) that orchestrates a team of specialized AI agents. Users can seamlessly toggle between the "Applicant" view to experience dynamic form building and AI assistance, and the "Compliance Reviewer" view to observe how AI can evaluate and summarize decisions.</p>
+<h2>4. Architectural Deep Dive &amp; Agentic Workflows</h2>
+<p>My platform utilizes a multi-agent architecture where specialized agents handle distinct cognitive responsibilities, demonstrating how AI can be orchestrated for complex tasks.</p>
+<h3>A. The Context Distiller Agent</h3>
+<p>When a new regulation is introduced to the platform (e.g., fetching the EU AI Act from EUR-Lex), the raw text is often too massive for efficient processing. The Context Distiller operates autonomously in the background, chunking and distilling the massive raw legal text into an optimized knowledge base. This preprocessing step ensures that subsequent agents operate with better context efficiency and factual grounding.</p>
+<h3>B. The Form Building Swarm Pipeline</h3>
+<p>Static PDFs are obsolete. When a new compliance standard is loaded, it triggers an entire Swarm Pipeline of specialized agents to construct the interactive form. First, the <strong>Form Architect Agent</strong> analyzes the distilled legislation to draft a structural blueprint. Then, the <strong>JSON Builder Agent</strong> converts this blueprint into a dynamic React schema. </p>
+<p>But it doesn't stop there—the draft schema is immediately audited by a <strong>UX Critique Agent</strong> and a <strong>Legal Critique Agent</strong>. If they find flaws, a <strong>Consensus Judge Agent</strong> determines the necessary fixes, and a suite of <strong>Patch Builder and Syntax Validator Agents</strong> autonomously rewrite the JSON code. This adversarial pipeline runs through multiple automated iterations until perfection is reached—which is exactly why the form generation can take over an hour, prioritizing meticulous attention to legal detail and highly user-friendly UX over raw speed.</p>
+<h3>C. The "Ask AI" Contextual Assistant</h3>
+<p>Embedded directly alongside the dynamically generated forms is my "Ask AI" agent. If an applicant encounters a confusing legal question, they can chat directly with the agent. The agent is contextually aware of the specific question, cross-references the distilled legislation, and explains the requirement in plain language.</p>
+<h3>D. The Auto-Fill Extraction Agent</h3>
+<p>To further assist applicants, they can upload their internal policy documents directly to the platform. The Auto-Fill Agent acts as an expert data extractor, autonomously reading the applicant's unstructured internal documents and pre-filling the complex regulatory forms, drastically reducing manual data entry.</p>
+<h3>E. The Swarm Evaluator</h3>
+<p>Once an applicant submits their form, the platform demonstrates agentic evaluation. The Swarm Evaluator agent maps the applicant's raw answers against the distilled legislation. It evaluates the questions and drafts a structured evaluation report with specific recommendations (e.g., "Approve", "Reject"), detailed legal justifications for each point, and crucially, proposes a draft message to be sent directly to the applicant to explain the decision.</p>
+<h3>F. Agentic Peer Review (Reviewer 2)</h3>
+<p>To experiment with AI self-correction, I implemented an automated peer-review step. Before the Swarm Evaluator's draft is presented to the human user, a completely separate Reviewer Auditor agent steps in. This agent independently reviews the applicant's answers and audits the first agent's draft report for logical flaws and strict JSON formatting compliance. This demonstrates how multi-agent workflows can be used to improve reliability before a human Compliance Reviewer makes the final call.</p>
+<h3>G. Towards State 4: Supervised Self-Improvement</h3>
+<p>To push the boundaries of agentic architectures, the sandbox explores concepts from "State 4" agentic maturity. The Meta Improvement Agent is designed to monitor the system's performance and analyze edge cases. While it does not autonomously mutate the codebase in real-time—ensuring strict safety guardrails—it acts as an automated prompt engineer. It analyzes "failure exhaust" to generate highly optimized prompt instructions, which a human developer can then manually review and deploy. This human-in-the-loop approach demonstrates a safe, practical stepping stone toward fully self-optimizing regulatory AI.</p>
+<h2>5. Technical Implementation &amp; Core Concepts</h2>
+<p>This project was built using the "Vibe Coding" methodology, working intensively alongside an AI assistant to orchestrate a complex system that fulfills five core course concepts:</p>
+<ul>
+<li><strong>ADK Orchestration &amp; Multi-Agent Swarms:</strong> The backend is powered by Python and FastAPI, utilizing the Google Agent Development Kit (ADK) to define and orchestrate the massive 8-agent swarms. I implemented robust error handling, including exponential backoff, to manage large context windows.</li>
+<li><strong>Security (Zero Ambient Authority):</strong> I built dedicated security agents (e.g., <code>document_security_guard</code> and <code>prompt_security_guard</code>) that act as strict input auditors to prevent malicious prompt injection during auto-fill operations.</li>
+<li><strong>Agent Skills (Function Calling):</strong> Agents are explicitly equipped with deterministic Python tools (like <code>init_form_schema</code>), demonstrating that they can take real actions rather than just generating text.</li>
+<li><strong>Deployability:</strong> A modern React application built with Vite and Tailwind CSS provides a clean UI. Because the frontend and backend are completely decoupled, the platform is fully equipped for immediate deployment to modern cloud infrastructure.</li>
+</ul>
+<h2>6. Future Scalability &amp; Learning Impact</h2>
+<p>While this sandbox is an experimental learning environment focused on the EU AI Act, the architecture is regulation-agnostic. By simply swapping the <code>celex_id</code> (the EUR-Lex identifier), the Context Distiller could theoretically ingest GDPR or other legislative frameworks, cascading those new rules into new forms. </p>
+<p>By demonstrating that autonomous AI can successfully navigate, distill, and assist with complex legislation, this project serves as a powerful proof-of-concept for how the agentic world might shape the future of RegTech (Regulatory Technology).</p></body></html>
